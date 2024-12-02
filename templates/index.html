@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS Printer Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1>POS Printer Chat</h1>
+            <button id="settingsBtn" class="settings-btn">⚙️ Settings</button>
+        </div>
+
+        <!-- Chat Area -->
+        <div class="chat-area" id="chatArea">
+            <!-- Messages will be inserted here -->
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Type your message...">
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <h2>Printer Settings</h2>
+            <div class="form-group">
+                <label for="printerIp">Printer IP:</label>
+                <input type="text" id="printerIp" placeholder="192.168.1.200">
+            </div>
+            <div class="form-group">
+                <label for="printerPort">Printer Port:</label>
+                <input type="number" id="printerPort" placeholder="9100">
+            </div>
+            <div class="button-group">
+                <button id="saveSettings">Connect</button>
+                <button id="closeSettings">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
