@@ -11,7 +11,7 @@
         <!-- Top Bar -->
         <div class="top-bar">
             <h1>POS Printer Chat</h1>
-            <button id="settingsBtn" class="settings-btn">⚙️ Settings</button>
+            <button id="settingsBtn" class="settings-btn">⚙️</button>
         </div>
 
         <!-- Chat Area -->
@@ -21,26 +21,34 @@
 
         <!-- Input Area -->
         <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Type your message...">
-            <button id="sendBtn">Send</button>
+            <select id="printType" class="print-type-select">
+                <option value="text">文本</option>
+                <option value="barcode">条形码</option>
+                <option value="qr">二维码</option>
+                <option value="image">图片</option>
+            </select>
+            <input type="text" id="messageInput" placeholder="请输入要打印的内容...">
+            <label for="imageInput" class="file-input-button" style="display: none;">选择图片</label>
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="sendBtn">发送</button>
         </div>
     </div>
 
     <!-- Settings Modal -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <h2>Printer Settings</h2>
+            <h2>打印机设置</h2>
             <div class="form-group">
-                <label for="printerIp">Printer IP:</label>
+                <label for="printerIp">打印机 IP:</label>
                 <input type="text" id="printerIp" placeholder="192.168.1.200">
             </div>
             <div class="form-group">
-                <label for="printerPort">Printer Port:</label>
+                <label for="printerPort">打印机端口:</label>
                 <input type="number" id="printerPort" placeholder="9100">
             </div>
             <div class="button-group">
-                <button id="saveSettings">Connect</button>
-                <button id="closeSettings">Cancel</button>
+                <button id="closeSettings">取消</button>
+                <button id="saveSettings">连接</button>
             </div>
         </div>
     </div>

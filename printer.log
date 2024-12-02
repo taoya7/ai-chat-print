@@ -99,3 +99,26 @@
 2024-12-02 22:02:57,713 - printer - INFO - 正在连接打印机 192.168.1.200:9100
 2024-12-02 22:02:57,716 - printer - INFO - 打印机初始化完成
 2024-12-02 22:02:57,716 - printer - INFO - 打印机连接成功
+2024-12-02 22:07:28,054 - printer - INFO - 正在连接打印机 192.168.1.200:9100
+2024-12-02 22:07:28,060 - printer - INFO - 打印机初始化完成
+2024-12-02 22:07:28,060 - printer - INFO - 打印机连接成功
+2024-12-02 22:09:17,311 - printer - INFO - 正在连接打印机 192.168.1.200:9100
+2024-12-02 22:09:17,314 - printer - INFO - 打印机初始化完成
+2024-12-02 22:09:17,314 - printer - INFO - 打印机连接成功
+2024-12-02 22:09:19,944 - printer - INFO - 成功打印内容: [2024-12-02 22:09:19] ccc...
+2024-12-02 22:09:21,890 - printer - INFO - 成功打印内容: [2024-12-02 22:09:21] asdasd...
+2024-12-02 22:09:22,205 - printer - INFO - 成功打印内容: [2024-12-02 22:09:22] asd...
+2024-12-02 22:09:22,339 - printer - INFO - 成功打印内容: [2024-12-02 22:09:22] a...
+2024-12-02 22:09:22,520 - printer - INFO - 成功打印内容: [2024-12-02 22:09:22] sd...
+2024-12-02 22:09:22,700 - printer - INFO - 成功打印内容: [2024-12-02 22:09:22] asd...
+2024-12-02 22:09:22,849 - printer - INFO - 成功打印内容: [2024-12-02 22:09:22] a...
+2024-12-02 22:09:26,466 - printer - ERROR - 打印机错误 - 条形码打印错误: No Barcode code was supplied (Barcode 'sda' not in a valid format for type 'CODE128')
+2024-12-02 22:09:32,024 - printer - INFO - 成功打印二维码: sda...
+2024-12-02 22:09:38,242 - printer - ERROR - 打印机错误 - 条形码打印错误: No Barcode code was supplied (Barcode '123321' not in a valid format for type 'CODE128')
+2024-12-02 22:09:51,590 - printer - INFO - 成功打印图片
+2024-12-02 22:10:02,512 - printer - ERROR - 打印机错误 - 条形码打印错误: No Barcode code was supplied (Barcode '111312' not in a valid format for type 'CODE128')
+2024-12-02 22:10:08,113 - printer - ERROR - 打印机错误 - 条形码打印错误: No Barcode code was supplied (Barcode '111312' not in a valid format for type 'CODE128')
+2024-12-02 22:11:42,193 - printer - INFO - 正在连接打印机 192.168.1.200:9100
+2024-12-02 22:11:42,197 - printer - INFO - 打印机初始化完成
+2024-12-02 22:11:42,198 - printer - INFO - 打印机连接成功
+2024-12-02 22:11:46,745 - printer - ERROR - 打印机错误 - 条形码打印错误: No Barcode code was supplied (Barcode '312' not in a valid format for type 'CODE128')

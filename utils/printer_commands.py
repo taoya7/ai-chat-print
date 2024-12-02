@@ -6,6 +6,11 @@ LINE_FEED = b'\x0A'  # 换行
 PAPER_CUT = b'\x1D\x56\x41\x00'  # 切纸
 CHAR_SPACING = b'\x1B\x20\x00'  # 字符间距
 
+# 对齐方式
+ALIGN_LEFT = b'\x1B\x61\x00'
+ALIGN_CENTER = b'\x1B\x61\x01'
+ALIGN_RIGHT = b'\x1B\x61\x02'
+
 # 中文相关指令
 CHINESE_MODE = {
     'ENABLE': b'\x1C\x26',  # 启用中文模式
@@ -25,6 +30,18 @@ FONT_COMMANDS = {
     'DEFAULT': b'\x1B\x4D\x00',  # 默认字体
     'BOLD_ON': b'\x1B\x45\x01',  # 加粗开启
     'BOLD_OFF': b'\x1B\x45\x00'  # 加粗关闭
+}
+
+# 条码类型
+BARCODE_TYPES = {
+    'UPC-A': 'UPC-A',
+    'UPC-E': 'UPC-E',
+    'EAN13': 'EAN13',
+    'EAN8': 'EAN8',
+    'CODE39': 'CODE39',
+    'CODE128': 'CODE128',
+    'ITF': 'ITF',
+    'CODABAR': 'CODABAR'
 }
 
 def get_density_command(level=3):

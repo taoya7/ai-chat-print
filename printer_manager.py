@@ -1,8 +1,9 @@
 """打印机管理器核心类"""
 from escpos.printer import Network
-import codecs
-from utils.printer_commands import *
-from utils.printer_logger import log_printer_error, log_printer_info, log_printer_debug
+import base64
+from PIL import Image
+import io
+from config import Config
 
 class PrinterManager:
     _instance = None
@@ -14,78 +15,81 @@ class PrinterManager:
         return cls._instance
 
     def connect(self, ip, port):
-        """连接网络打印机并初始化设置"""
+        """连接网络打印机"""
         try:
-            log_printer_info(f"正在连接打印机 {ip}:{port}")
             self.printer = Network(ip, port)
-            self._initialize_printer()
-            log_printer_info("打印机连接成功")
+            # 初始化打印机
+            self.printer._raw(b'\x1B\x40')
             return True
         except Exception as e:
-            log_printer_error("连接错误", str(e))
+            print(f"打印机连接错误: {str(e)}")
             return False
-
-    def _initialize_printer(self):
-        """初始化打印机设置"""
-        if not self.printer:
-            return
-
-        try:
-            # 初始化打印机
-            self.printer._raw(INIT_PRINTER)
-
-            # 设置打印浓度（深度）
-            self.printer._raw(get_density_command(3))
-
-            # 设置中文模式
-            self._set_chinese_mode()
-
-            # 设置字符间距
-            self.printer._raw(CHAR_SPACING)
-
-            log_printer_info("打印机初始化完成")
-        except Exception as e:
-            log_printer_error("初始化错误", str(e))
-            raise
-
-    def _set_chinese_mode(self):
-        """设置中文打印模式"""
-        if not self.printer:
-            return
-        try:
-            self.printer._raw(CHINESE_MODE['ENABLE'])
-            self.printer._raw(CHINESE_MODE['SELECT'])
-            log_printer_debug("中文模式设置成功")
-        except Exception as e:
-            log_printer_error("中文模式设置错误", str(e))
-            raise
 
     def print_text(self, text):
-        """打印文本内容"""
+        """打印文本"""
         if not self.printer:
-            log_printer_error("打印错误", "打印机未连接")
             return False
 
         try:
-            # 重置打印机状态
-            self.printer._raw(INIT_PRINTER)
-
-            # 设置加粗模式
-            self.printer._raw(FONT_COMMANDS['BOLD_ON'])
-
-            # 打印内容
             self.printer._raw(text.encode('gb2312'))
-            self.printer._raw("\n\n\n".encode('gb2312'))
-            self.printer._raw(LINE_FEED)
-
-            # 关闭加粗模式
-            self.printer._raw(FONT_COMMANDS['BOLD_OFF'])
-
-            log_printer_info(f"成功打印内容: {text[:50]}...")
+            self.printer.text('\n\n\n')
             return True
-
         except Exception as e:
-            log_printer_error("打印错误", str(e))
+            print(f"打印错误: {str(e)}")
+            return False
+
+    def print_barcode(self, data, barcode_type="CODE128"):
+        """打印条形码"""
+        if not self.printer:
+            return False
+        try:
+            self.printer.set(align='center')
+
+            # 处理特殊字符
+            formatted_data = "{B" + data  # 添加 CODE128 B 模式前缀
+            # 打印条形码
+            self.printer.barcode(formatted_data, barcode_type)
+            return True
+        except Exception as e:
+            print(f"条形码打印错误: {str(e)}")
+            return False
+
+    def print_qr(self, data):
+        """打印二维码"""
+        if not self.printer:
+            return False
+        try:
+            self.printer.set(align='center')
+            self.printer.qr(data, size=8)
+            return True
+        except Exception as e:
+            print(f"二维码打印错误: {str(e)}")
+            return False
+
+    def print_image(self, image_data):
+        """打印图片"""
+        if not self.printer:
+            return False
+
+        try:
+            # 解码base64图片数据
+            image_binary = base64.b64decode(image_data.split(',')[1])
+            image = Image.open(io.BytesIO(image_binary))
+
+            # 调整图片大小以适应打印机
+            max_width = 512
+            ratio = max_width / image.width
+            new_size = (max_width, int(image.height * ratio))
+            image = image.resize(new_size)
+
+            self.printer.set(align='center')
+            self.printer.image(image)
+            self.printer.text("\n\n")
+            self.printer.set(align='left')
+            self.printer.cut()
+            return True
+        except Exception as e:
+            print(f"图片打印错误: {str(e)}")
             return False
 
     def is_connected(self):
